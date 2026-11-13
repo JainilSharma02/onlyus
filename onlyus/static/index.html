@@ -130,12 +130,12 @@ nav button span{font-size:1.35rem}nav button.on{opacity:1;background:rgba(244,16
   <div id="msgs"></div>
   <div id="replyTo" style="font-size:.78rem;padding:4px 16px;background:rgba(255,255,255,0.7);display:none;"></div>
   
-  <div id="bar">
-    <button class="ic" onclick="openSnapCamera()" title="Instant Snap Camera" style="width:40px;height:40px;background:linear-gradient(135deg,#f497ba,#c2a8f2);color:#fff;">📷</button>
-    <button class="ic" onclick="pick.click()" title="Send Photo from Gallery" style="width:40px;height:40px;">🖼️</button>
-    <input id="txt" placeholder="Message..." autocomplete="off">
-    <button class="ic" id="sendBtn" style="width:40px;height:40px;background:linear-gradient(135deg,#9b51e0,#e056fd);color:#fff;">🚀</button>
-  </div>
+  <form id="bar" onsubmit="return handleChatSubmit(event)" style="margin:0;">
+    <button type="button" class="ic" onclick="openSnapCamera()" title="Instant Snap Camera" style="width:40px;height:40px;background:linear-gradient(135deg,#f497ba,#c2a8f2);color:#fff;">📷</button>
+    <button type="button" class="ic" onclick="pick.click()" title="Send Photo from Gallery" style="width:40px;height:40px;">🖼️</button>
+    <input id="txt" placeholder="Message..." autocomplete="off" enterkeyhint="send">
+    <button type="submit" class="ic" id="sendBtn" style="width:40px;height:40px;background:linear-gradient(135deg,#9b51e0,#e056fd);color:#fff;">🚀</button>
+  </form>
   <input type="file" id="pick" accept="image/*" hidden>
  </div>
 </section>
@@ -431,18 +431,25 @@ window.setReply = id => {
   repEl.innerHTML = 'Replying to: ' + esc(m.body || m.kind) + ' <a href="#" style="color:var(--deep);font-weight:700;margin-left:6px;" onclick="replyId=null;$(\'#replyTo\').style.display=\'none\';return false">✕</a>';
 };
 
-async function sendTxt(){
-  const b = $('#txt').value.trim();
-  if(!b) return;
+async function handleChatSubmit(e){
+  if(e) e.preventDefault();
+  const inputEl = $('#txt');
+  const b = inputEl ? inputEl.value.trim() : '';
+  if(!b) return false;
+  
   const payload = {kind:'text', body:b, reply_to:replyId};
-  $('#txt').value = '';
+  inputEl.value = '';
   replyId = null;
-  $('#replyTo').style.display = 'none';
+  const repEl = $('#replyTo');
+  if(repEl) repEl.style.display = 'none';
+  
   await sendMsgPayload(payload);
+  inputEl.focus();
+  return false;
 }
 
-$('#sendBtn').onclick = sendTxt;
-$('#txt').onkeydown = e => e.key === 'Enter' && sendTxt();
+window.sendTxt = () => handleChatSubmit();
+
 
 async function up(file){
   const f = new FormData();
