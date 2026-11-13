@@ -266,9 +266,18 @@ let rec,chunks=[];$('#mic').onclick=async()=>{if(rec?.state=='recording'){rec.st
  rec.onstop=async()=>{st.getTracks().forEach(t=>t.stop());$('#mic').classList.remove('rec');const mt=rec.mimeType.split(';')[0]||'audio/webm';const r=await up(new File(chunks,'v',{type:mt}));send({t:'msg',kind:'audio',file:r.file})};rec.start();$('#mic').classList.add('rec')}catch{toast('Mic ke liye HTTPS + permission chahiye')}};
 
 // snaps
-async function loadSnaps(){const s=await api('snaps');window.SN=s;const als=['All',...new Set(s.map(x=>x.album))];
- $('#albums').innerHTML=als.map(a=>`<button class="btn ${a==album?'':'ghost'}" onclick="album='${esc(a)}';loadSnaps()">${esc(a)}</button>`).join('');
- $('#sgrid').innerHTML=s.filter(x=>album=='All'||x.album==album).map(x=>`<div class="tile" onclick="view('${x.file}','${x.mime}',${x.id})">${x.mime.startsWith('video')?`<video src="${fu(x.file)}" muted></video>`:`<img loading="lazy" src="${fu(x.file)}">`}<i>${esc(x.sticker)}</i><p>${new Date(x.created).toLocaleDateString()} ${esc(x.caption)}</p></div>`).join('')||'<p>Abhi kuch nahi — pehli yaad daalo 📸</p>';
+async function loadSnaps(){
+ const s=await api('snaps');window.SN=s;
+ const albEl = $('#albums');
+ if(albEl) albEl.innerHTML = '';
+ const grid = $('#sgrid');
+ if(grid){
+  if(s && s.length > 0){
+   grid.innerHTML = s.map(x=>`<div class="tile" onclick="view('${x.file}','${x.mime}',${x.id})">${x.mime.startsWith('video')?`<video src="${fu(x.file)}" muted></video>`:`<img loading="lazy" src="${fu(x.file)}">`}<i>${esc(x.sticker||'')}</i><p>${new Date(x.created).toLocaleDateString()} ${esc(x.caption)}</p></div>`).join('');
+  } else {
+   grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:32px 14px;background:rgba(255,255,255,0.45);border-radius:24px;border:1.5px dashed var(--rose)"><div style="font-size:2.6rem;margin-bottom:6px">📸✨</div><h4 style="color:var(--deep);margin-bottom:4px">No Snaps Yet</h4><p style="font-size:0.85rem;opacity:0.8;margin-bottom:12px">Pehli snap capture karne ke liye Click Snap dabao!</p><button class="btn" onclick="openSnapCamera()">📸 Click Snap</button></div>`;
+  }
+ }
  const t=s[0];
  if(t){
   $('#todayMem').innerHTML=`<div class="tile" style="aspect-ratio:16/10;border-radius:20px;box-shadow:0 8px 24px rgba(194,85,127,.18)" onclick="view('${t.file}','${t.mime}',${t.id})">${t.mime.startsWith('video')?'<video src="'+fu(t.file)+'" muted autoplay loop playsinline></video>':'<img src="'+fu(t.file)+'" loading="lazy">'}<i style="top:10px;right:10px">${esc(t.sticker||'💗')}</i><p style="padding:22px 12px 8px;font-size:.85rem"><b>${esc(t.caption||"Today's Snap")}</b> • <span style="opacity:.85">${new Date(t.created).toLocaleDateString()}</span></p></div>`;
