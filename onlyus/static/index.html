@@ -96,7 +96,14 @@ nav button span{font-size:1.35rem}nav button.on{opacity:1;background:rgba(244,16
     <button class="btn" style="padding:.45em 1em;font-size:.82rem" onclick="$('#homeMemFile').click()">+ Add Photo</button>
   </div>
   <div id="todayMem"></div>
-  <input type="file" id="homeMemFile" accept="image/*,video/*" capture="environment" hidden>
+  <input type="file" id="homeMemFile" accept="image/*,video/*" hidden>
+  <div style="margin-top:14px;border-top:1px solid rgba(255,255,255,0.7);padding-top:12px">
+    <div class="row" style="justify-content:space-between;margin-bottom:8px">
+      <h4 style="font-size:0.95rem;opacity:0.9">Our Memory Gallery 🖼️</h4>
+      <small style="cursor:pointer;color:var(--deep);font-weight:700" onclick="go('snaps')">View All →</small>
+    </div>
+    <div id="homeRecentGallery" class="grid" style="grid-template-columns:repeat(auto-fill,minmax(90px,1fr));gap:8px"></div>
+  </div>
  </div>
  <div class="card glass"><h3>Our Song ❤️</h3><div id="ourSong" style="margin-top:8px">Music tab me ek gaana "Our Song" banao.</div></div>
 
@@ -212,7 +219,11 @@ async function loadSnaps(){const s=await api('snaps');window.SN=s;const als=['Al
  if(t){
   $('#todayMem').innerHTML=`<div class="tile" style="aspect-ratio:16/10;border-radius:20px;box-shadow:0 8px 24px rgba(194,85,127,.18)" onclick="view('${t.file}','${t.mime}',${t.id})">${t.mime.startsWith('video')?'<video src="'+fu(t.file)+'" muted autoplay loop playsinline></video>':'<img src="'+fu(t.file)+'" loading="lazy">'}<i style="top:10px;right:10px">${esc(t.sticker||'💗')}</i><p style="padding:22px 12px 8px;font-size:.85rem"><b>${esc(t.caption||"Today's Memory")}</b> • <span style="opacity:.85">${new Date(t.created).toLocaleDateString()}</span></p></div>`;
  } else {
-  $('#todayMem').innerHTML=`<div class="mem-upload-box" onclick="$('#homeMemFile').click()"><div style="font-size:2.2rem;animation:beat 1.5s infinite">📸</div><b style="color:var(--deep);font-size:1.05rem">Add Today's Photo</b><small style="opacity:.75">Tap here to choose from mobile camera or gallery</small></div>`;
+  $('#todayMem').innerHTML=`<div class="mem-upload-box" onclick="$('#homeMemFile').click()"><div style="font-size:2.2rem;animation:beat 1.5s infinite">📸</div><b style="color:var(--deep);font-size:1.05rem">Add Today's Photo</b><small style="opacity:.75">Camera se lo ya Gallery se choose karo</small></div>`;
+ }
+ const galEl = $('#homeRecentGallery');
+ if(galEl){
+  galEl.innerHTML = s.slice(0, 6).map(x=>`<div class="tile" style="border-radius:14px;box-shadow:0 3px 10px rgba(0,0,0,0.06)" onclick="view('${x.file}','${x.mime}',${x.id})">${x.mime.startsWith('video')?`<video src="${fu(x.file)}" muted></video>`:`<img loading="lazy" src="${fu(x.file)}">`}<i>${esc(x.sticker||'')}</i></div>`).join('') || '<small style="opacity:0.6;grid-column:1/-1">Abhi tak koi photo upload nahi hui 📸</small>';
  }
 }
 $('#homeMemFile').onchange=async e=>{
