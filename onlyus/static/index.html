@@ -261,7 +261,7 @@ $('#avMe').onclick=()=>{const i=document.createElement('input');i.type='file';i.
 
 // nav
 $$('[data-go]').forEach(b=>b.onclick=()=>go(b.dataset.go));
-function go(id){$$('.page').forEach(p=>p.classList.toggle('on',p.id==id));$$('nav button').forEach(b=>b.classList.toggle('on',b.dataset.go==id));if(id=='chat'){scrollEnd();send({t:'seen'})}}
+function go(id){$$('.page').forEach(p=>p.classList.toggle('on',p.id==id));$$('nav button').forEach(b=>b.classList.toggle('on',b.dataset.go==id));if(id=='chat'){api('messages').then(m=>{if(m){msgs=m;draw();}});scrollEnd();send({t:'seen'})}}
 
 // timer
 function tick(){if(!CFG.start){$('#timer').innerHTML='';return}
@@ -323,12 +323,16 @@ function connect(){
       if(!ME) return;
       try {
         const fresh = await api('messages');
-        if(fresh && fresh.length !== msgs.length){
-          msgs = fresh;
-          draw();
+        if(fresh && Array.isArray(fresh)){
+          const freshIds = fresh.map(x => x.id).join(',');
+          const currentIds = msgs.filter(x => !String(x.id).startsWith('temp_')).map(x => x.id).join(',');
+          if(freshIds !== currentIds){
+            msgs = fresh;
+            draw();
+          }
         }
       } catch(e){}
-    }, 2500);
+    }, 1200);
   }
 }
 
@@ -339,15 +343,31 @@ const send = o => {
 };
 
 async function sendMsgPayload(payload){
-  // Send via REST endpoint (guaranteed to save in DB immediately on Vercel)
+  // Instant optimistic render on screen
+  const tempId = 'temp_' + Date.now();
+  const tempMsg = {
+    id: tempId,
+    sender: ME.id,
+    body: payload.body || '',
+    kind: payload.kind || 'text',
+    file: payload.file || null,
+    reply_to: payload.reply_to || null,
+    reaction: null,
+    created: new Date().toISOString(),
+    seen: false
+  };
+  msgs.push(tempMsg);
+  draw();
+
   try {
     const saved = await api('messages', J('POST', payload));
-    if(!msgs.some(x => x.id === saved.id)){
-      msgs.push(saved);
-      draw();
-    }
+    const idx = msgs.findIndex(x => x.id === tempId);
+    if(idx !== -1) msgs[idx] = saved;
+    else if(!msgs.some(x => x.id === saved.id)) msgs.push(saved);
+    draw();
   } catch(e) {
-    // Fallback to websocket if REST had issue
+    console.error('Failed to send REST message:', e);
+    // Fallback to websocket
     send({t: 'msg', ...payload});
   }
 }
