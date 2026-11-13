@@ -58,13 +58,25 @@ nav button span{font-size:1.35rem}nav button.on{opacity:1;background:rgba(244,16
 .tile{position:relative;aspect-ratio:1;border-radius:20px;overflow:hidden;background:#fff;cursor:pointer;box-shadow:0 6px 16px rgba(0,0,0,.08)}
 .tile img,.tile video{width:100%;height:100%;object-fit:cover}.tile i{position:absolute;right:8px;top:6px;font-style:normal;font-size:1.4rem}
 .tile p{position:absolute;bottom:0;left:0;right:0;padding:16px 8px 6px;font-size:.78rem;background:linear-gradient(transparent,rgba(74,45,70,.75));color:#fff}
-#chatbox{height:calc(100dvh - 120px - env(safe-area-inset-bottom));display:flex;flex-direction:column;padding:12px}
-#msgs{flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:8px;padding:6px;-webkit-overflow-scrolling:touch}
-.m{max-width:82%;padding:10px 14px;border-radius:20px;background:#fff;align-self:flex-start;position:relative;word-break:break-word;box-shadow:0 2px 8px rgba(0,0,0,.05)}
-.m.me{align-self:flex-end;background:linear-gradient(135deg,#ffd2e4,#e5d9ff)}
-.m small{display:block;font-size:.65rem;opacity:.6;text-align:right}.m img{max-width:100%;border-radius:14px}.m .q{font-size:.75rem;border-left:3px solid var(--deep);padding-left:6px;opacity:.7;margin-bottom:3px}
-.m .rx{position:absolute;bottom:-10px;right:6px;background:#fff;border-radius:99px;padding:0 5px;font-size:.85rem;box-shadow:0 1px 4px #0002}
-#bar{display:flex;gap:6px;padding-top:8px;align-items:center}#bar input{flex:1}
+#chatbox{height:calc(100dvh - 110px - env(safe-area-inset-bottom));display:flex;flex-direction:column;padding:0;overflow:hidden;border-radius:28px;}
+#chatHeader{padding:12px 16px;background:rgba(255,255,255,0.85);backdrop-filter:blur(15px);border-bottom:1px solid rgba(255,255,255,0.9);display:flex;align-items:center;gap:12px;box-shadow:0 2px 8px rgba(0,0,0,0.03);}
+.ig-av{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,#f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%);padding:2px;display:inline-block;flex:none;}
+.ig-av-inner{width:100%;height:100%;border-radius:50%;background:#fff;border:2px solid #fff;display:grid;place-items:center;font-weight:700;color:var(--deep);overflow:hidden;background-size:cover;background-position:center;}
+#msgs{flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:6px;padding:12px;-webkit-overflow-scrolling:touch;scroll-behavior:smooth;}
+.msg-wrap{display:flex;gap:8px;align-items:flex-end;width:100%;}
+.msg-wrap.me{justify-content:flex-end;}
+.msg-av{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#f8b4d0,#cfbcf5);border:1.5px solid #fff;display:grid;place-items:center;font-size:0.75rem;font-weight:700;color:#fff;flex:none;background-size:cover;background-position:center;box-shadow:0 2px 6px rgba(0,0,0,0.08);}
+.m{max-width:76%;padding:10px 16px;border-radius:22px;background:#ffffff;color:#262626;align-self:flex-start;position:relative;word-break:break-word;box-shadow:0 2px 8px rgba(0,0,0,.04);font-size:0.95rem;line-height:1.4;}
+.m.me{background:linear-gradient(135deg,#9b51e0,#e056fd,#ff6584);color:#ffffff;box-shadow:0 4px 14px rgba(224,86,253,.25);border-bottom-right-radius:6px;}
+.m:not(.me){border-bottom-left-radius:6px;border:1px solid rgba(0,0,0,0.05);}
+.m small{display:block;font-size:.65rem;opacity:.75;margin-top:4px;text-align:right;}
+.m.me small{color:rgba(255,255,255,0.9);}
+.m img{max-width:100%;border-radius:16px;margin-top:2px;cursor:pointer;}
+.m .q{font-size:.78rem;border-left:3px solid currentColor;padding-left:8px;opacity:.85;margin-bottom:5px;font-style:italic;}
+.m .rx{position:absolute;bottom:-10px;right:10px;background:#fff;border-radius:99px;padding:1px 6px;font-size:.85rem;box-shadow:0 2px 6px rgba(0,0,0,.15);border:1px solid rgba(0,0,0,0.04);}
+#bar{display:flex;gap:8px;padding:10px 14px;background:rgba(255,255,255,0.85);backdrop-filter:blur(15px);border-top:1px solid rgba(255,255,255,0.9);align-items:center;}
+#bar input{flex:1;background:rgba(240,242,245,0.85);border:1px solid transparent;border-radius:24px;padding:10px 16px;font-size:0.95rem;}
+#bar input:focus{background:#fff;border-color:var(--deep);}
 .ic{width:44px;height:44px;border-radius:50%;border:0;background:var(--glass);font-size:1.25rem;cursor:pointer;flex:none;transition:transform .15s;display:grid;place-items:center}.ic:active{transform:scale(.92)}.ic.rec{background:#ff8fab;animation:beat 1s infinite}
 .env{cursor:pointer;display:flex;gap:12px;align-items:center}.env .e{font-size:2rem;transition:transform .5s}.env.open .e{transform:rotateY(180deg) scale(1.3)}
 .env .body{white-space:pre-wrap;display:none;margin-top:8px}.env.open .body{display:block;animation:in .6s}
@@ -103,10 +115,30 @@ nav button span{font-size:1.35rem}nav button.on{opacity:1;background:rgba(244,16
 
 </section>
 
-<section class="page" id="chat"><div class="glass" id="chatbox"><div class="row"><b id="pname"></b><small id="pstat"></small><span class="grow"></span><button class="ic" onclick="send({t:'hug'})" title="Hug bhejo">🤗</button></div>
- <div id="msgs"></div><div id="replyTo" style="font-size:.75rem"></div>
- <div id="bar"><button class="ic" onclick="pick.click()">📷</button><button class="ic" id="mic">🎤</button><input id="txt" placeholder="Kuch pyara likho…" autocomplete="off"><button class="ic" id="sendBtn">💗</button></div>
- <input type="file" id="pick" accept="image/*" hidden></div></section>
+<section class="page" id="chat">
+ <div class="glass" id="chatbox">
+  <!-- Instagram-like Direct Header -->
+  <div id="chatHeader">
+    <div class="ig-av"><div class="ig-av-inner" id="chatPartnerAv"></div></div>
+    <div class="grow" style="line-height:1.2;">
+      <b id="pname" style="font-size:1.05rem;display:block;">Partner</b>
+      <small id="pstat" style="font-size:0.75rem;color:#10b981;font-weight:600;">Active now</small>
+    </div>
+    <button class="ic" onclick="sendMsgPayload({kind:'hug',body:''});hugAnim('Tumne')" title="Virtual Hug" style="width:38px;height:38px;font-size:1.2rem;box-shadow:none;background:rgba(244,166,195,0.25);">🤗</button>
+  </div>
+
+  <div id="msgs"></div>
+  <div id="replyTo" style="font-size:.78rem;padding:4px 16px;background:rgba(255,255,255,0.7);display:none;"></div>
+  
+  <div id="bar">
+    <button class="ic" onclick="openSnapCamera()" title="Instant Snap Camera" style="width:40px;height:40px;background:linear-gradient(135deg,#f497ba,#c2a8f2);color:#fff;">📷</button>
+    <button class="ic" onclick="pick.click()" title="Send Photo from Gallery" style="width:40px;height:40px;">🖼️</button>
+    <input id="txt" placeholder="Message..." autocomplete="off">
+    <button class="ic" id="sendBtn" style="width:40px;height:40px;background:linear-gradient(135deg,#9b51e0,#e056fd);color:#fff;">🚀</button>
+  </div>
+  <input type="file" id="pick" accept="image/*" hidden>
+ </div>
+</section>
 
 <section class="page" id="snaps">
  <div class="card glass" style="text-align:center;padding:22px 16px;">
@@ -215,8 +247,14 @@ async function doLogin(e){e.preventDefault();try{await api('login',J('POST',{use
 $('#out').onclick=async()=>{await api('logout',{method:'POST'});location.reload()};
 
 async function boot(){try{const d=await api('me');ME=d.me;P=d.partner;CFG=d.settings}catch{return}
- $('#login').style.display='none';$('#app').style.display='grid';$('#pname').textContent=P?.name||'';
- setAv($('#avMe'),ME);setAv($('#avP'),P);$('#love').textContent=CFG.love||0;$('#sd').value=CFG.start||'';
+ $('#login').style.display='none';$('#app').style.display='grid';$('#pname').textContent=P?.name||'Partner';
+ setAv($('#avMe'),ME);setAv($('#avP'),P);
+ const pAv = $('#chatPartnerAv');
+ if(pAv){
+   if(P?.avatar){ pAv.style.backgroundImage=`url(${fu(P.avatar)})`; pAv.textContent=''; }
+   else { pAv.textContent = (P?.name||'P')[0]; }
+ }
+ $('#love').textContent=CFG.love||0;$('#sd').value=CFG.start||'';
  connect();loadAll();tick();setInterval(tick,1000)}
 function setAv(el,u){if(u?.avatar){el.style.backgroundImage=`url(${fu(u.avatar)})`;el.textContent=''}else el.textContent=(u?.name||'?')[0]}
 $('#avMe').onclick=()=>{const i=document.createElement('input');i.type='file';i.accept='image/*';i.onchange=async()=>{const f=new FormData();f.append('file',i.files[0]);const r=await api('avatar',{method:'POST',body:f});ME.avatar=r.avatar;setAv($('#avMe'),ME)};i.click()};
@@ -240,27 +278,166 @@ function rain(n=1){for(let i=0;i<n;i++)setTimeout(()=>{const h=document.createEl
 setInterval(()=>rain(1),1800);
 function hugAnim(who){$('#modal').innerHTML=`<div class="glass card hero" style="background:#fff"><div class="hug">🫂</div><p>${esc(who)} ne tumhe tight hug diya 💗</p></div>`;$('#modal').classList.add('on');rain(20);navigator.vibrate?.(200)}
 
-// websocket + chat
-function connect(){ws=new WebSocket((location.protocol=='https:'?'wss://':'ws://')+location.host+'/ws');
- ws.onmessage=e=>{const d=JSON.parse(e.data);
-  if(d.t=='msg'){msgs.push(d.m);draw();if(d.m.sender!=ME.id){if($('#chat').classList.contains('on'))send({t:'seen'});else toast('💌 Naya message')}}
-  if(d.t=='react'){const m=msgs.find(x=>x.id==d.id);if(m){m.reaction=d.emoji;draw()}}
-  if(d.t=='seen'){msgs.forEach(m=>{if(d.ids.includes(m.id))m.seen=true});draw()}
-  if(d.t=='hug')hugAnim(d.from);
-  if(d.t=='presence')$('#pstat').textContent=d.online?' • online':''};
- ws.onclose=()=>setTimeout(()=>ME&&connect(),2000)}
-const send=o=>ws?.readyState==1&&ws.send(JSON.stringify(o));
-const tm=s=>new Date(s).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
-function draw(){$('#msgs').innerHTML=msgs.map(m=>{const r=m.reply_to&&msgs.find(x=>x.id==m.reply_to);const me=m.sender==ME.id;
- const body=m.kind=='image'?`<img src="${fu(m.file)}" onclick="event.stopPropagation();view('${m.file}','image/')">`:m.kind=='audio'?`<audio controls src="${fu(m.file)}"></audio>`:esc(m.body);
- return `<div class="m ${me?'me':''}" data-id="${m.id}" ondblclick="react(${m.id})" onclick="setReply(${m.id})">${r?`<div class="q">${esc(r.body||r.kind)}</div>`:''}${body}<small>${tm(m.created)} ${me?(m.seen?'✓✓ seen':'✓ sent'):''}</small>${m.reaction?`<span class="rx">${m.reaction}</span>`:''}</div>`}).join('');scrollEnd()}
-const scrollEnd=()=>setTimeout(()=>{const e=$('#msgs');e.scrollTop=e.scrollHeight},30);
-window.react=id=>send({t:'react',id,emoji:pick1(['❤️','😘','🥰','😍','🫶'])});
-window.setReply=id=>{replyId=id;const m=msgs.find(x=>x.id==id);$('#replyTo').innerHTML='↩ '+esc(m.body||m.kind)+' <a href="#" onclick="replyId=null;this.parentNode.innerHTML=\'\';return false">✕</a>'};
-function sendTxt(){const b=$('#txt').value.trim();if(!b)return;send({t:'msg',kind:'text',body:b,reply_to:replyId});$('#txt').value='';replyId=null;$('#replyTo').innerHTML=''}
-$('#sendBtn').onclick=sendTxt;$('#txt').onkeydown=e=>e.key=='Enter'&&sendTxt();
-async function up(file){const f=new FormData();f.append('file',file);return api('upload',{method:'POST',body:f})}
-$('#pick').onchange=async e=>{const r=await up(e.target.files[0]);send({t:'msg',kind:'image',file:r.file,reply_to:replyId});e.target.value=''};
+// ====== INSTAGRAM-STYLE REALTIME CHAT ======
+let chatPollTimer = null;
+
+function connect(){
+  try {
+    ws = new WebSocket((location.protocol === 'https:' ? 'wss://' : 'ws://') + location.host + '/ws');
+    ws.onmessage = e => {
+      const d = JSON.parse(e.data);
+      if(d.t === 'msg'){
+        if(!msgs.some(x => x.id === d.m.id)){
+          msgs.push(d.m);
+          draw();
+          if(d.m.sender != ME.id){
+            if($('#chat').classList.contains('on')) send({t:'seen'});
+            else toast('💬 ' + (P?.name||'Partner') + ': ' + (d.m.body || 'Photo'));
+          }
+        }
+      }
+      if(d.t === 'react'){
+        const m = msgs.find(x => x.id == d.id);
+        if(m){ m.reaction = d.emoji; draw(); }
+      }
+      if(d.t === 'seen'){
+        msgs.forEach(m => { if(d.ids.includes(m.id)) m.seen = true; });
+        draw();
+      }
+      if(d.t === 'hug') hugAnim(d.from);
+      if(d.t === 'presence') {
+        const ps = $('#pstat');
+        if(ps) ps.textContent = d.online ? 'Active now' : 'Active recently';
+      }
+    };
+    ws.onclose = () => {
+      setTimeout(() => ME && connect(), 3000);
+    };
+  } catch(err) {
+    console.log('WS not supported, relying on REST auto-sync');
+  }
+  
+  // High-reliability Polling Sync (Guarantees messages show on Vercel serverless)
+  if(!chatPollTimer){
+    chatPollTimer = setInterval(async () => {
+      if(!ME) return;
+      try {
+        const fresh = await api('messages');
+        if(fresh && fresh.length !== msgs.length){
+          msgs = fresh;
+          draw();
+        }
+      } catch(e){}
+    }, 2500);
+  }
+}
+
+const send = o => {
+  if(ws && ws.readyState === 1){
+    ws.send(JSON.stringify(o));
+  }
+};
+
+async function sendMsgPayload(payload){
+  // Send via REST endpoint (guaranteed to save in DB immediately on Vercel)
+  try {
+    const saved = await api('messages', J('POST', payload));
+    if(!msgs.some(x => x.id === saved.id)){
+      msgs.push(saved);
+      draw();
+    }
+  } catch(e) {
+    // Fallback to websocket if REST had issue
+    send({t: 'msg', ...payload});
+  }
+}
+
+const tm = s => new Date(s).toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+
+function draw(){
+  const msgsBox = $('#msgs');
+  if(!msgsBox) return;
+  
+  const partnerAvImg = P?.avatar ? `url(${fu(P.avatar)})` : '';
+  const partnerInitial = (P?.name || 'P')[0];
+  
+  msgsBox.innerHTML = msgs.map(m => {
+    const r = m.reply_to && msgs.find(x => x.id == m.reply_to);
+    const me = (m.sender == ME.id);
+    const body = m.kind === 'image' 
+      ? `<img src="${fu(m.file)}" onclick="event.stopPropagation();view('${m.file}','image/')">` 
+      : m.kind === 'audio' 
+        ? `<audio controls src="${fu(m.file)}"></audio>` 
+        : esc(m.body);
+        
+    const avatarHtml = me ? '' : `
+      <div class="msg-av" style="${partnerAvImg ? `background-image:${partnerAvImg};font-size:0;` : ''}">
+        ${partnerAvImg ? '' : partnerInitial}
+      </div>`;
+      
+    return `
+      <div class="msg-wrap ${me ? 'me' : ''}">
+        ${avatarHtml}
+        <div class="m ${me ? 'me' : ''}" data-id="${m.id}" ondblclick="reactMsg(${m.id})" onclick="setReply(${m.id})">
+          ${r ? `<div class="q">${esc(r.body || r.kind)}</div>` : ''}
+          ${body}
+          <small>${tm(m.created)} ${me ? (m.seen ? '✓✓ Seen' : '✓ Sent') : ''}</small>
+          ${m.reaction ? `<span class="rx">${m.reaction}</span>` : ''}
+        </div>
+      </div>
+    `;
+  }).join('');
+  scrollEnd();
+}
+
+const scrollEnd = () => setTimeout(() => {
+  const e = $('#msgs');
+  if(e) e.scrollTop = e.scrollHeight;
+}, 30);
+
+window.reactMsg = async id => {
+  const emoji = pick1(['❤️','😍','🥰','🔥','🫶']);
+  send({t:'react', id, emoji});
+  try {
+    await api('messages/react', J('POST', {id, emoji}));
+  } catch(e){}
+};
+
+window.setReply = id => {
+  replyId = id;
+  const m = msgs.find(x => x.id == id);
+  const repEl = $('#replyTo');
+  repEl.style.display = 'block';
+  repEl.innerHTML = 'Replying to: ' + esc(m.body || m.kind) + ' <a href="#" style="color:var(--deep);font-weight:700;margin-left:6px;" onclick="replyId=null;$(\'#replyTo\').style.display=\'none\';return false">✕</a>';
+};
+
+async function sendTxt(){
+  const b = $('#txt').value.trim();
+  if(!b) return;
+  const payload = {kind:'text', body:b, reply_to:replyId};
+  $('#txt').value = '';
+  replyId = null;
+  $('#replyTo').style.display = 'none';
+  await sendMsgPayload(payload);
+}
+
+$('#sendBtn').onclick = sendTxt;
+$('#txt').onkeydown = e => e.key === 'Enter' && sendTxt();
+
+async function up(file){
+  const f = new FormData();
+  f.append('file', file);
+  return api('upload', {method:'POST', body:f});
+}
+
+$('#pick').onchange = async e => {
+  const f = e.target.files[0];
+  if(!f) return;
+  toast('Sending photo... ⏳');
+  const r = await up(f);
+  await sendMsgPayload({kind:'image', file:r.file, reply_to:replyId});
+  e.target.value = '';
+};
 let rec,chunks=[];$('#mic').onclick=async()=>{if(rec?.state=='recording'){rec.stop();return}
  try{const st=await navigator.mediaDevices.getUserMedia({audio:true});rec=new MediaRecorder(st);chunks=[];rec.ondataavailable=e=>chunks.push(e.data);
  rec.onstop=async()=>{st.getTracks().forEach(t=>t.stop());$('#mic').classList.remove('rec');const mt=rec.mimeType.split(';')[0]||'audio/webm';const r=await up(new File(chunks,'v',{type:mt}));send({t:'msg',kind:'audio',file:r.file})};rec.start();$('#mic').classList.add('rec')}catch{toast('Mic ke liye HTTPS + permission chahiye')}};

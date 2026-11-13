@@ -227,6 +227,47 @@ async def push(uids, payload):
             try: await ws.send_json(payload)
             except Exception: conns[uid].discard(ws)
 
+
+# ---------- REST Chat Fallback (works on Vercel & serverless) ----------
+class SendMsgIn(BaseModel):
+    body: str = ""
+    kind: str = "text"
+    file: str | None = None
+    reply_to: int | None = None
+
+@app.post("/api/messages")
+async def send_message_api(d: SendMsgIn, u: User = Depends(auth)):
+    p = partner_of(u)
+    with Session() as s:
+        kind = d.kind if d.kind in ("text", "image", "audio") else "text"
+        f = d.file
+        if f and not re.fullmatch(r"[a-f0-9]{32}\.[a-z0-9]{2,4}", f):
+            f = None
+        m = Message(sender=u.id, body=(d.body or "")[:4000], kind=kind, file=f, reply_to=d.reply_to)
+        s.add(m)
+        s.commit()
+        payload = {"t": "msg", "m": ser(m)}
+        both = [u.id, p.id] if p else [u.id]
+        await push(both, payload)
+        return ser(m)
+
+class ReactIn(BaseModel):
+    id: int
+    emoji: str
+
+@app.post("/api/messages/react")
+async def react_message_api(d: ReactIn, u: User = Depends(auth)):
+    p = partner_of(u)
+    with Session() as s:
+        m = s.get(Message, d.id)
+        if m:
+            m.reaction = d.emoji if m.reaction != d.emoji else None
+            s.commit()
+            both = [u.id, p.id] if p else [u.id]
+            await push(both, {"t": "react", "id": m.id, "emoji": m.reaction})
+            return {"ok": True, "reaction": m.reaction}
+    return {"ok": False}
+
 @app.websocket("/ws")
 async def ws_chat(ws: WebSocket):
     u = user_from_token(ws.cookies.get("sid", ""))
