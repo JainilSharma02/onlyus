@@ -56,7 +56,13 @@ def init_db(db_url):
         except Exception as err:
             print(f"[DB] PostgreSQL unavailable ({err}). Falling back to SQLite local database.")
     
-    _sqlite_path = str(BASE_DIR / "onlyus.db")
+    try:
+        _sqlite_path = str(BASE_DIR / "onlyus.db")
+        # Test if writable
+        with open(_sqlite_path, "a") as f:
+            pass
+    except Exception:
+        _sqlite_path = "/tmp/onlyus.db"
     sqlite_url = f"sqlite:///{_sqlite_path}"
     print(f"[DB] Running on SQLite: {sqlite_url}")
     return create_engine(sqlite_url, connect_args={"check_same_thread": False})
@@ -369,6 +375,9 @@ def avatar(file: UploadFile = File(...), u: User = Depends(auth)):
         x = s.get(User, u.id); x.avatar = name; s.commit()
     return {"avatar": name}
 
+static_dir = BASE_DIR / "static"
 @app.get("/")
-def index(): return FileResponse("static/index.html", headers={"Cache-Control": "no-store"})
-app.mount("/static", StaticFiles(directory="static"), name="static")
+def index():
+    return FileResponse(static_dir / "index.html", headers={"Cache-Control": "no-store"})
+if static_dir.exists():
+    app.mount("/static", StaticFiles(directory=str(static_dir)), name="static")

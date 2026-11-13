@@ -1,0 +1,9 @@
+fastapi
+uvicorn[standard]
+sqlalchemy
+psycopg2-binary
+bcrypt
+itsdangerous
+python-multipart
+python-dotenv
+aiofiles
