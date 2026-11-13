@@ -108,12 +108,31 @@ nav button span{font-size:1.35rem}nav button.on{opacity:1;background:rgba(244,16
  <div id="bar"><button class="ic" onclick="pick.click()">📷</button><button class="ic" id="mic">🎤</button><input id="txt" placeholder="Kuch pyara likho…" autocomplete="off"><button class="ic" id="sendBtn">💗</button></div>
  <input type="file" id="pick" accept="image/*" hidden></div></section>
 
-<section class="page" id="snaps"><div class="card glass"><h3>Naya snapshot</h3>
- <div class="row" style="margin-top:8px"><input type="file" id="sf" accept="image/*,video/*" capture="environment" class="grow"></div>
- <input id="sc" placeholder="Caption / kuch yaad…" style="margin-top:8px">
- <div class="row" style="margin-top:8px"><select id="sa" class="grow"><option>Random Moments</option><option>First Meeting</option><option>First Date</option><option>Special Days</option></select>
- <select id="ss"><option value="">Sticker</option><option>💗</option><option>🌸</option><option>✨</option><option>🧸</option><option>🥰</option><option>🍫</option></select><button class="btn" id="sup">Upload</button></div></div>
- <div class="tabs" id="albums"></div><div class="grid" id="sgrid"></div></section>
+<section class="page" id="snaps">
+ <div class="card glass" style="text-align:center;padding:22px 16px;">
+  <div class="row" style="justify-content:space-between;align-items:center;margin-bottom:12px;">
+    <h3 style="margin:0;">Snap Memories 📸</h3>
+    <span style="font-size:0.8rem;opacity:0.75;">Only Us Gallery</span>
+  </div>
+  
+  <!-- Big Mobile-friendly Action Buttons -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;">
+    <button class="btn" style="padding:14px;border-radius:18px;font-size:0.95rem;display:flex;flex-direction:column;gap:4px;" onclick="openSnapCamera()">
+      <span style="font-size:1.6rem;">📸</span>
+      <span>Click Snap</span>
+    </button>
+    <button class="btn ghost" style="padding:14px;border-radius:18px;font-size:0.95rem;display:flex;flex-direction:column;gap:4px;border:1.5px solid var(--rose);background:rgba(255,255,255,0.7);" onclick="$('#snapGalleryInput').click()">
+      <span style="font-size:1.6rem;">🖼️</span>
+      <span>Pick Photo</span>
+    </button>
+  </div>
+  
+  <input type="file" id="snapGalleryInput" accept="image/*,video/*" hidden onchange="handleSnapGallerySelect(event)">
+ </div>
+
+ <div class="tabs" id="albums"></div>
+ <div class="grid" id="sgrid"></div>
+</section>
 
 <section class="page" id="music"><div class="card glass"><h3>Gaana add karo 🎵</h3>
  <input id="mt" placeholder="Title" style="margin-top:8px"><input id="ma" placeholder="Artist" style="margin-top:8px">
@@ -385,6 +404,23 @@ function handleSnapUploadFile(e) {
   $('#snapLiveControls').style.display = 'none';
   $('#snapReviewControls').style.display = 'flex';
   $('#snapCaptionInput').focus();
+}
+
+
+function handleSnapGallerySelect(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  snapBlob = file;
+  $('#snapModal').style.display = 'flex';
+  $('#snapVideo').style.display = 'none';
+  $('#snapPreviewImg').src = URL.createObjectURL(file);
+  $('#snapPreviewImg').style.display = 'block';
+  $('#snapCaptionBox').style.display = 'block';
+  $('#snapLiveControls').style.display = 'none';
+  $('#snapReviewControls').style.display = 'flex';
+  $('#snapCaptionInput').value = '';
+  $('#snapCaptionInput').focus();
+  e.target.value = '';
 }
 
 async function sendSnap() {
