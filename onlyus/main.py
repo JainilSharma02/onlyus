@@ -82,8 +82,8 @@ Base.metadata.create_all(engine)
 
 def seed():
     defaults = {
-        "1": "him:Raj:ChangeMe-Strong-Pass-1",
-        "2": "her:Priya:ChangeMe-Strong-Pass-2"
+        "1": "him:J:himher0203",
+        "2": "her:D:himher0203"
     }
     with Session() as s:
         for i in ("1", "2"):
@@ -92,8 +92,12 @@ def seed():
             parts = raw.split(":", 2)
             if len(parts) != 3: continue
             u, n, p = parts
-            if not s.query(User).filter_by(username=u).first():
+            existing = s.query(User).filter_by(username=u).first()
+            if not existing:
                 s.add(User(username=u, name=n, pw=bcrypt.hashpw(p.encode(), bcrypt.gensalt()).decode()))
+            else:
+                existing.name = n
+                existing.pw = bcrypt.hashpw(p.encode(), bcrypt.gensalt()).decode()
         s.commit()
 seed()
 
@@ -133,7 +137,7 @@ def login(d: Login, request: Request, resp: Response):
         u = s.query(User).filter_by(username=d.username.strip().lower()).first()
     if not u or not bcrypt.checkpw(d.password.encode(), u.pw.encode()):
         attempts[ip] = attempts.get(ip, 0) + 1
-        raise HTTPException(401, "Username ya password galat hai")
+        raise HTTPException(401, "Wrong Password")
     attempts.pop(ip, None)
     resp.set_cookie("sid", signer.sign(str(u.id)).decode(), max_age=SESSION_SECS,
                     httponly=True, samesite="strict", secure=SECURE)

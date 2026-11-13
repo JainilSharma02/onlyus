@@ -26,8 +26,8 @@ echo   💻 Open in browser:  http://localhost:8000
 echo   📱 Open on Phone:    http://192.168.0.101:8000
 echo.
 echo   Login Details:
-echo     User 1 (Him):  username: him   password: ChangeMe-Strong-Pass-1
-echo     User 2 (Her):  username: her   password: ChangeMe-Strong-Pass-2
+echo     User 1 (Him):  username: him   password: himher0203
+echo     User 2 (Her):  username: her   password: himher0203
 echo.
 echo   (Press Ctrl+C to stop)
 echo  =====================================================

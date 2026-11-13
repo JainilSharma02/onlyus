@@ -4,74 +4,100 @@
 <title>ONLY US 💗 Our Little Universe</title><meta name="theme-color" content="#f7d9e6">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@1,9..144,400;1,9..144,600&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--rose:#f4a6c3;--deep:#c2557f;--lav:#cdb9f2;--cream:#fff6ee;--ink:#4a2d46;--glass:rgba(255,255,255,.55);--line:rgba(255,255,255,.8)}
+:root{--rose:#f4a6c3;--deep:#c2557f;--lav:#cdb9f2;--cream:#fff6ee;--ink:#4a2d46;--glass:rgba(255,255,255,.68);--line:rgba(255,255,255,.88)}
 *{box-sizing:border-box;margin:0;-webkit-tap-highlight-color:transparent}
-html,body{height:100%}
-body{font:16px/1.5 Nunito,system-ui,sans-serif;color:var(--ink);background:linear-gradient(160deg,#ffe3ef,#ece2ff 55%,#fff6ee) fixed;overflow:hidden}
+html,body{height:100%;height:100dvh;width:100%;overflow:hidden}
+body{
+  font:16px/1.5 Nunito,system-ui,-apple-system,sans-serif;
+  color:var(--ink);
+  background: radial-gradient(circle at 15% 15%, #ffd2e2 0%, transparent 45%),
+              radial-gradient(circle at 85% 15%, #e3d2ff 0%, transparent 45%),
+              radial-gradient(circle at 80% 85%, #ffcbe2 0%, transparent 45%),
+              radial-gradient(circle at 15% 85%, #dbe6ff 0%, transparent 45%),
+              linear-gradient(135deg, #fff2f6 0%, #f7efff 50%, #fff8f2 100%) fixed;
+  background-size: 180% 180%;
+  animation: auroraBg 14s ease-in-out infinite alternate;
+}
+@keyframes auroraBg {
+  0% { background-position: 0% 0%; }
+  50% { background-position: 100% 100%; }
+  100% { background-position: 0% 80%; }
+}
 h1,h2,h3,.disp{font-family:Fraunces,serif;font-style:italic;font-weight:600}
-button,input,textarea,select{font:inherit;color:inherit}
-.glass{background:var(--glass);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid var(--line);border-radius:22px;box-shadow:0 8px 30px rgba(194,85,127,.12)}
-.btn{border:0;background:linear-gradient(135deg,var(--rose),var(--lav));padding:.65em 1.2em;border-radius:99px;font-weight:700;cursor:pointer;box-shadow:0 4px 14px rgba(194,85,127,.25);transition:transform .15s}
-.btn:active{transform:scale(.94)}.btn.ghost{background:var(--glass);box-shadow:none}
-input,textarea,select{width:100%;padding:.7em 1em;border-radius:16px;border:1px solid var(--line);background:rgba(255,255,255,.7);outline:none}
+button,input,textarea,select{font:inherit;font-size:16px;color:inherit;touch-action:manipulation}
+.glass{background:var(--glass);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);border:1px solid rgba(255,255,255,.9);border-radius:24px;box-shadow:0 10px 32px rgba(194,85,127,.12), inset 0 1px 2px rgba(255,255,255,.95)}
+.btn{border:0;background:linear-gradient(135deg,#f497ba,#c2a8f2);color:#fff;padding:.7em 1.3em;border-radius:99px;font-weight:700;cursor:pointer;box-shadow:0 6px 18px rgba(194,85,127,.28);transition:transform .15s, box-shadow .15s;display:inline-flex;align-items:center;justify-content:center;gap:6px}
+.btn:active{transform:scale(.95)}.btn.ghost{background:rgba(255,255,255,.5);color:var(--ink);box-shadow:none;border:1px solid rgba(255,255,255,.8)}
+input,textarea,select{width:100%;padding:.75em 1em;border-radius:18px;border:1px solid var(--line);background:rgba(255,255,255,.85);outline:none;box-shadow:inset 0 1px 3px rgba(0,0,0,.03)}
 input:focus,textarea:focus,button:focus-visible{outline:2px solid var(--deep);outline-offset:2px}
 #hearts{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
-.fh{position:absolute;bottom:-40px;animation:rise linear forwards;opacity:.7}
+.fh{position:absolute;bottom:-40px;animation:rise linear forwards;opacity:.75;filter:drop-shadow(0 2px 4px rgba(244,166,195,.4))}
 @keyframes rise{to{transform:translateY(-110vh) rotate(25deg);opacity:0}}
-#app,#login{position:relative;z-index:1;height:100%}
+#app,#login{position:relative;z-index:1;height:100%;height:100dvh}
 #login{display:grid;place-items:center;padding:20px}
-#login .glass{padding:32px 26px;width:min(380px,100%);display:grid;gap:12px;text-align:center}
-#login h1{font-size:2.2rem}.err{color:#b00045;min-height:1.2em;font-size:.9rem}
-#app{display:none;grid-template-rows:1fr auto}
-main{overflow:auto;padding:max(16px,env(safe-area-inset-top)) 16px 16px;scroll-behavior:smooth}
-.page{display:none;max-width:720px;margin:auto;animation:in .35s}.page.on{display:block}
+#login .glass{padding:36px 26px;width:min(390px,100%);display:grid;gap:14px;text-align:center}
+#login h1{font-size:2.3rem}.err{color:#c2185b;font-weight:700;min-height:1.2em;font-size:.9rem}
+#app{display:none;grid-template-rows:1fr}
+main{overflow-y:auto;overflow-x:hidden;padding:max(14px,env(safe-area-inset-top)) 14px calc(88px + env(safe-area-inset-bottom));scroll-behavior:smooth;-webkit-overflow-scrolling:touch}
+.page{display:none;max-width:620px;margin:auto;animation:in .35s}.page.on{display:block}
 @keyframes in{from{opacity:0;transform:translateY(8px)}}
-nav{display:flex;justify-content:space-around;margin:0 10px calc(10px + env(safe-area-inset-bottom));padding:6px}
-nav button{background:none;border:0;padding:6px 8px;border-radius:16px;font-size:.72rem;display:grid;justify-items:center;cursor:pointer;opacity:.65}
-nav button span{font-size:1.35rem}nav button.on{opacity:1;background:rgba(244,166,195,.45);font-weight:700}
-.card{padding:18px;margin-bottom:14px}.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.grow{flex:1}
-.hero{text-align:center;padding:26px 18px}.hero h1{font-size:2rem;line-height:1.15}
-.pair{display:flex;justify-content:center;align-items:center;gap:14px;margin:16px 0}
-.av{width:78px;height:78px;border-radius:50%;background:var(--lav) center/cover;border:3px solid #fff;display:grid;place-items:center;font-size:1.8rem;cursor:pointer}
-.beat{font-size:2rem;animation:beat 1.2s infinite}@keyframes beat{50%{transform:scale(1.25)}}
+nav{position:fixed;bottom:max(10px,env(safe-area-inset-bottom));left:12px;right:12px;max-width:560px;margin:auto;z-index:50;display:flex;justify-content:space-around;padding:6px 4px;background:rgba(255,255,255,.8);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-radius:28px;box-shadow:0 10px 30px rgba(194,85,127,.2),0 1px 3px rgba(0,0,0,.05);border:1px solid rgba(255,255,255,.9)}
+nav button{flex:1;background:none;border:0;padding:6px 2px;border-radius:20px;font-size:.72rem;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;opacity:.65;transition:all .2s}
+nav button span{font-size:1.35rem}nav button.on{opacity:1;background:rgba(244,166,195,.4);font-weight:700;box-shadow:0 2px 8px rgba(194,85,127,.12);color:var(--deep)}
+.card{padding:20px;margin-bottom:14px}.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.grow{flex:1}
+.hero{text-align:center;padding:26px 18px}.hero h1{font-size:2.05rem;line-height:1.2}
+.pair{display:flex;justify-content:center;align-items:center;gap:16px;margin:16px 0}
+.av{width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,#f8b4d0,#cfbcf5);border:3.5px solid #fff;display:grid;place-items:center;font-size:2rem;font-weight:700;color:#fff;text-shadow:0 2px 8px rgba(194,85,127,.35);cursor:pointer;box-shadow:0 8px 24px rgba(194,85,127,.22);transition:transform .2s ease}
+.av:hover,.av:active{transform:scale(1.06)}
+.beat{font-size:2.2rem;animation:beat 1.2s infinite;filter:drop-shadow(0 2px 8px rgba(244,166,195,.5))}@keyframes beat{50%{transform:scale(1.25)}}
 .timer{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:10px}
-.timer div{background:rgba(255,255,255,.6);border-radius:16px;padding:10px 0}.timer b{display:block;font:italic 600 1.7rem Fraunces,serif;color:var(--deep)}.timer small{font-size:.7rem}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
-.tile{position:relative;aspect-ratio:1;border-radius:18px;overflow:hidden;background:#fff;cursor:pointer}
+.timer div{background:rgba(255,255,255,.7);border-radius:18px;padding:12px 0;box-shadow:0 4px 12px rgba(194,85,127,.08);text-align:center}.timer b{display:block;font:italic 600 1.6rem Fraunces,serif;color:var(--deep)}.timer small{font-size:.7rem}
+.mem-upload-box{border:2px dashed rgba(244,166,195,.9);border-radius:22px;padding:26px 16px;text-align:center;cursor:pointer;background:rgba(255,255,255,.55);display:grid;gap:6px;place-items:center;transition:all .2s ease}
+.mem-upload-box:active{transform:scale(.98);background:rgba(255,255,255,.85);border-color:var(--deep)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px}
+.tile{position:relative;aspect-ratio:1;border-radius:20px;overflow:hidden;background:#fff;cursor:pointer;box-shadow:0 6px 16px rgba(0,0,0,.08)}
 .tile img,.tile video{width:100%;height:100%;object-fit:cover}.tile i{position:absolute;right:8px;top:6px;font-style:normal;font-size:1.4rem}
-.tile p{position:absolute;bottom:0;left:0;right:0;padding:16px 8px 6px;font-size:.78rem;background:linear-gradient(transparent,rgba(74,45,70,.7));color:#fff}
-#chatbox{height:calc(100dvh - 170px);display:flex;flex-direction:column;padding:10px}
-#msgs{flex:1;overflow:auto;display:flex;flex-direction:column;gap:6px;padding:6px}
-.m{max-width:80%;padding:8px 12px;border-radius:18px;background:#fff;align-self:flex-start;position:relative;word-break:break-word}
-.m.me{align-self:flex-end;background:linear-gradient(135deg,#ffd0e2,#e3d5ff)}
-.m small{display:block;font-size:.65rem;opacity:.6;text-align:right}.m img{max-width:100%;border-radius:12px}.m .q{font-size:.75rem;border-left:3px solid var(--deep);padding-left:6px;opacity:.7;margin-bottom:3px}
+.tile p{position:absolute;bottom:0;left:0;right:0;padding:16px 8px 6px;font-size:.78rem;background:linear-gradient(transparent,rgba(74,45,70,.75));color:#fff}
+#chatbox{height:calc(100dvh - 120px - env(safe-area-inset-bottom));display:flex;flex-direction:column;padding:12px}
+#msgs{flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:8px;padding:6px;-webkit-overflow-scrolling:touch}
+.m{max-width:82%;padding:10px 14px;border-radius:20px;background:#fff;align-self:flex-start;position:relative;word-break:break-word;box-shadow:0 2px 8px rgba(0,0,0,.05)}
+.m.me{align-self:flex-end;background:linear-gradient(135deg,#ffd2e4,#e5d9ff)}
+.m small{display:block;font-size:.65rem;opacity:.6;text-align:right}.m img{max-width:100%;border-radius:14px}.m .q{font-size:.75rem;border-left:3px solid var(--deep);padding-left:6px;opacity:.7;margin-bottom:3px}
 .m .rx{position:absolute;bottom:-10px;right:6px;background:#fff;border-radius:99px;padding:0 5px;font-size:.85rem;box-shadow:0 1px 4px #0002}
 #bar{display:flex;gap:6px;padding-top:8px;align-items:center}#bar input{flex:1}
-.ic{width:42px;height:42px;border-radius:50%;border:0;background:var(--glass);font-size:1.2rem;cursor:pointer;flex:none}.ic.rec{background:#ff8fab;animation:beat 1s infinite}
+.ic{width:44px;height:44px;border-radius:50%;border:0;background:var(--glass);font-size:1.25rem;cursor:pointer;flex:none;transition:transform .15s;display:grid;place-items:center}.ic:active{transform:scale(.92)}.ic.rec{background:#ff8fab;animation:beat 1s infinite}
 .env{cursor:pointer;display:flex;gap:12px;align-items:center}.env .e{font-size:2rem;transition:transform .5s}.env.open .e{transform:rotateY(180deg) scale(1.3)}
 .env .body{white-space:pre-wrap;display:none;margin-top:8px}.env.open .body{display:block;animation:in .6s}
-.modal{position:fixed;inset:0;background:rgba(40,20,40,.85);z-index:50;display:none;place-items:center;padding:14px}.modal.on{display:grid}
-.modal img,.modal video{max-width:100%;max-height:78vh;border-radius:14px}
-.tabs{display:flex;gap:6px;overflow:auto;margin-bottom:10px}.tabs button{white-space:nowrap}
-#player{position:sticky;bottom:0}.song{display:flex;gap:10px;align-items:center;padding:8px 0;border-bottom:1px solid #fff9}
-.cov{width:48px;height:48px;border-radius:12px;background:linear-gradient(135deg,var(--rose),var(--lav)) center/cover;display:grid;place-items:center;flex:none}
-#toast{position:fixed;top:14px;left:50%;transform:translateX(-50%);background:#fff;padding:8px 16px;border-radius:99px;z-index:99;display:none;box-shadow:0 4px 20px #0003}
+.modal{position:fixed;inset:0;background:rgba(40,20,40,.85);backdrop-filter:blur(10px);z-index:90;display:none;place-items:center;padding:16px}.modal.on{display:grid}
+.modal img,.modal video{max-width:100%;max-height:76vh;border-radius:18px;box-shadow:0 12px 40px rgba(0,0,0,.35)}
+.tabs{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;margin-bottom:12px;-webkit-overflow-scrolling:touch}
+.tabs button{white-space:nowrap;flex:none}
+#player{position:sticky;bottom:0}.song{display:flex;gap:10px;align-items:center;padding:10px 0;border-bottom:1px solid #fff9}
+.cov{width:50px;height:50px;border-radius:14px;background:linear-gradient(135deg,var(--rose),var(--lav)) center/cover;display:grid;place-items:center;flex:none}
+#toast{position:fixed;top:16px;left:50%;transform:translateX(-50%);background:#fff;padding:10px 20px;border-radius:99px;z-index:99;display:none;box-shadow:0 6px 24px rgba(0,0,0,.18);font-weight:700;font-size:.9rem}
 .hug{font-size:5rem;text-align:center;animation:beat 1s infinite}
 .big{font:italic 600 3rem Fraunces,serif;color:var(--deep);text-align:center}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style></head><body>
 <div id="hearts"></div><div id="toast"></div>
 <section id="login"><form class="glass" onsubmit="return doLogin(event)">
-<div class="beat">💗</div><h1>ONLY US</h1><p>Sirf hum dono ki chhoti si duniya</p>
+<div class="beat">💗</div><h1>ONLY US</h1>
 <input id="u" placeholder="Username" autocomplete="username" required><input id="p" type="password" placeholder="Password" autocomplete="current-password" required>
-<div class="err" id="err"></div><button class="btn">Andar aao 💌</button></form></section>
+<div class="err" id="err"></div><button class="btn">Welcome 💌</button></form></section>
 
 <div id="app"><main>
 <section class="page on" id="home">
  <div class="card glass hero"><h1>Welcome to Our Little World ❤️</h1><p>A place where our memories live forever.</p>
   <div class="pair"><div class="av" id="avMe" title="Photo badlo"></div><div class="beat">💗</div><div class="av" id="avP"></div></div>
   <div class="timer" id="timer"></div><p style="margin-top:8px;font-size:.85rem" id="sinceTxt"></p></div>
- <div class="card glass"><h3>Aaj ki yaad 📸</h3><div id="todayMem" style="margin-top:8px">Abhi koi memory nahi — pehli snap daalo!</div></div>
+ <div class="card glass">
+  <div class="row" style="justify-content:space-between;margin-bottom:10px">
+    <h3>Today Memories 📸</h3>
+    <button class="btn" style="padding:.45em 1em;font-size:.82rem" onclick="$('#homeMemFile').click()">+ Add Photo</button>
+  </div>
+  <div id="todayMem"></div>
+  <input type="file" id="homeMemFile" accept="image/*,video/*" capture="environment" hidden>
+ </div>
  <div class="card glass"><h3>Our Song ❤️</h3><div id="ourSong" style="margin-top:8px">Music tab me ek gaana "Our Song" banao.</div></div>
  <div class="row"><button class="btn grow" data-go="chat">💬 Chat</button><button class="btn grow" data-go="snaps">📸 Gallery</button><button class="btn grow" id="surp">🎁 Surprise</button></div>
 </section>
@@ -124,7 +150,7 @@ const SURPRISES=["Aaj 3 baar 'I love you' bolo 💋","Ek chhota sa sapna: hum sa
 const pick1=a=>a[Math.random()*a.length|0];
 
 function showLogin(){$('#app').style.display='none';$('#login').style.display='grid'}
-async function doLogin(e){e.preventDefault();try{await api('login',J('POST',{username:$('#u').value,password:$('#p').value}));boot()}catch{$('#err').textContent='Username ya password galat hai'}return false}
+async function doLogin(e){e.preventDefault();try{await api('login',J('POST',{username:$('#u').value,password:$('#p').value}));boot()}catch{$('#err').textContent='Wrong Password'}return false}
 $('#out').onclick=async()=>{await api('logout',{method:'POST'});location.reload()};
 
 async function boot(){try{const d=await api('me');ME=d.me;P=d.partner;CFG=d.settings}catch{return}
@@ -139,7 +165,7 @@ $$('[data-go]').forEach(b=>b.onclick=()=>go(b.dataset.go));
 function go(id){$$('.page').forEach(p=>p.classList.toggle('on',p.id==id));$$('nav button').forEach(b=>b.classList.toggle('on',b.dataset.go==id));if(id=='chat'){scrollEnd();send({t:'seen'})}}
 
 // timer
-function tick(){if(!CFG.start){$('#timer').innerHTML='<p style="grid-column:1/-1">More → apni special date set karo 💕</p>';return}
+function tick(){if(!CFG.start){$('#timer').innerHTML='';return}
  let s=Math.max(0,(Date.now()-new Date(CFG.start+'T00:00:00'))/1000|0);const v=[s/86400|0,s/3600%24|0,s/60%60|0,s%60],l=['din','ghante','minute','second'];
  $('#timer').innerHTML=v.map((x,i)=>`<div><b>${x}</b><small>${l[i]}</small></div>`).join('')}
 $('#sd').onchange=()=>{CFG.start=$('#sd').value;saveCfg()};
@@ -182,7 +208,20 @@ let rec,chunks=[];$('#mic').onclick=async()=>{if(rec?.state=='recording'){rec.st
 async function loadSnaps(){const s=await api('snaps');window.SN=s;const als=['All',...new Set(s.map(x=>x.album))];
  $('#albums').innerHTML=als.map(a=>`<button class="btn ${a==album?'':'ghost'}" onclick="album='${esc(a)}';loadSnaps()">${esc(a)}</button>`).join('');
  $('#sgrid').innerHTML=s.filter(x=>album=='All'||x.album==album).map(x=>`<div class="tile" onclick="view('${x.file}','${x.mime}',${x.id})">${x.mime.startsWith('video')?`<video src="${fu(x.file)}" muted></video>`:`<img loading="lazy" src="${fu(x.file)}">`}<i>${esc(x.sticker)}</i><p>${new Date(x.created).toLocaleDateString()} ${esc(x.caption)}</p></div>`).join('')||'<p>Abhi kuch nahi — pehli yaad daalo 📸</p>';
- const t=s[0];$('#todayMem').innerHTML=t?`<div class="tile" style="aspect-ratio:16/10" onclick="view('${t.file}','${t.mime}',${t.id})">${t.mime.startsWith('video')?'<video src="'+fu(t.file)+'" muted></video>':'<img src="'+fu(t.file)+'">'}<p>${esc(t.caption)}</p></div>`:'Abhi koi memory nahi — pehli snap daalo!'}
+ const t=s[0];
+ if(t){
+  $('#todayMem').innerHTML=`<div class="tile" style="aspect-ratio:16/10;border-radius:20px;box-shadow:0 8px 24px rgba(194,85,127,.18)" onclick="view('${t.file}','${t.mime}',${t.id})">${t.mime.startsWith('video')?'<video src="'+fu(t.file)+'" muted autoplay loop playsinline></video>':'<img src="'+fu(t.file)+'" loading="lazy">'}<i style="top:10px;right:10px">${esc(t.sticker||'💗')}</i><p style="padding:22px 12px 8px;font-size:.85rem"><b>${esc(t.caption||"Today's Memory")}</b> • <span style="opacity:.85">${new Date(t.created).toLocaleDateString()}</span></p></div>`;
+ } else {
+  $('#todayMem').innerHTML=`<div class="mem-upload-box" onclick="$('#homeMemFile').click()"><div style="font-size:2.2rem;animation:beat 1.5s infinite">📸</div><b style="color:var(--deep);font-size:1.05rem">Add Today's Photo</b><small style="opacity:.75">Tap here to choose from mobile camera or gallery</small></div>`;
+ }
+}
+$('#homeMemFile').onchange=async e=>{
+ const f=e.target.files[0];if(!f)return;
+ toast('Uploading photo... ⏳');
+ const d=new FormData();d.append('file',f);d.append('caption',"Today's Memory ❤️");d.append('sticker','💗');d.append('album','Today Memories');
+ try{await api('snaps',{method:'POST',body:d});toast('Photo added! 📸💕');rain(15);loadSnaps()}catch{toast('Upload failed')}
+ e.target.value='';
+};
 window.view=(f,mime,id)=>{const s=(window.SN||[]).find(x=>x.id==id);$('#modal').innerHTML=`<div style="text-align:center;color:#fff">${mime.startsWith('video')?`<video controls autoplay src="${fu(f)}"></video>`:`<img src="${fu(f)}">`}<p>${s?esc(s.caption)+' '+esc(s.sticker):''}</p>${s&&s.owner==ME.id?`<button class="btn" onclick="event.stopPropagation();delSnap(${s.id})">🗑 Delete</button>`:''}</div>`;$('#modal').classList.add('on')};
 window.delSnap=async id=>{if(!confirm('Pakka delete?'))return;await api('snaps/'+id,{method:'DELETE'});$('#modal').classList.remove('on');loadSnaps()};
 $('#sup').onclick=async()=>{const f=$('#sf').files[0];if(!f)return toast('Pehle photo/video chuno');const d=new FormData();d.append('file',f);d.append('caption',$('#sc').value);d.append('sticker',$('#ss').value);d.append('album',$('#sa').value);
