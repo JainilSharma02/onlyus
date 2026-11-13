@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="hi"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>ONLY US 💗 Our Little Universe</title><meta name="theme-color" content="#f7d9e6">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@1,9..144,400;1,9..144,600&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--rose:#f4a6c3;--deep:#c2557f;--lav:#cdb9f2;--cream:#fff6ee;--ink:#4a2d46;--glass:rgba(255,255,255,.55);--line:rgba(255,255,255,.8)}
+*{box-sizing:border-box;margin:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%}
+body{font:16px/1.5 Nunito,system-ui,sans-serif;color:var(--ink);background:linear-gradient(160deg,#ffe3ef,#ece2ff 55%,#fff6ee) fixed;overflow:hidden}
+h1,h2,h3,.disp{font-family:Fraunces,serif;font-style:italic;font-weight:600}
+button,input,textarea,select{font:inherit;color:inherit}
+.glass{background:var(--glass);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid var(--line);border-radius:22px;box-shadow:0 8px 30px rgba(194,85,127,.12)}
+.btn{border:0;background:linear-gradient(135deg,var(--rose),var(--lav));padding:.65em 1.2em;border-radius:99px;font-weight:700;cursor:pointer;box-shadow:0 4px 14px rgba(194,85,127,.25);transition:transform .15s}
+.btn:active{transform:scale(.94)}.btn.ghost{background:var(--glass);box-shadow:none}
+input,textarea,select{width:100%;padding:.7em 1em;border-radius:16px;border:1px solid var(--line);background:rgba(255,255,255,.7);outline:none}
+input:focus,textarea:focus,button:focus-visible{outline:2px solid var(--deep);outline-offset:2px}
+#hearts{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.fh{position:absolute;bottom:-40px;animation:rise linear forwards;opacity:.7}
+@keyframes rise{to{transform:translateY(-110vh) rotate(25deg);opacity:0}}
+#app,#login{position:relative;z-index:1;height:100%}
+#login{display:grid;place-items:center;padding:20px}
+#login .glass{padding:32px 26px;width:min(380px,100%);display:grid;gap:12px;text-align:center}
+#login h1{font-size:2.2rem}.err{color:#b00045;min-height:1.2em;font-size:.9rem}
+#app{display:none;grid-template-rows:1fr auto}
+main{overflow:auto;padding:max(16px,env(safe-area-inset-top)) 16px 16px;scroll-behavior:smooth}
+.page{display:none;max-width:720px;margin:auto;animation:in .35s}.page.on{display:block}
+@keyframes in{from{opacity:0;transform:translateY(8px)}}
+nav{display:flex;justify-content:space-around;margin:0 10px calc(10px + env(safe-area-inset-bottom));padding:6px}
+nav button{background:none;border:0;padding:6px 8px;border-radius:16px;font-size:.72rem;display:grid;justify-items:center;cursor:pointer;opacity:.65}
+nav button span{font-size:1.35rem}nav button.on{opacity:1;background:rgba(244,166,195,.45);font-weight:700}
+.card{padding:18px;margin-bottom:14px}.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.grow{flex:1}
+.hero{text-align:center;padding:26px 18px}.hero h1{font-size:2rem;line-height:1.15}
+.pair{display:flex;justify-content:center;align-items:center;gap:14px;margin:16px 0}
+.av{width:78px;height:78px;border-radius:50%;background:var(--lav) center/cover;border:3px solid #fff;display:grid;place-items:center;font-size:1.8rem;cursor:pointer}
+.beat{font-size:2rem;animation:beat 1.2s infinite}@keyframes beat{50%{transform:scale(1.25)}}
+.timer{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:10px}
+.timer div{background:rgba(255,255,255,.6);border-radius:16px;padding:10px 0}.timer b{display:block;font:italic 600 1.7rem Fraunces,serif;color:var(--deep)}.timer small{font-size:.7rem}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.tile{position:relative;aspect-ratio:1;border-radius:18px;overflow:hidden;background:#fff;cursor:pointer}
+.tile img,.tile video{width:100%;height:100%;object-fit:cover}.tile i{position:absolute;right:8px;top:6px;font-style:normal;font-size:1.4rem}
+.tile p{position:absolute;bottom:0;left:0;right:0;padding:16px 8px 6px;font-size:.78rem;background:linear-gradient(transparent,rgba(74,45,70,.7));color:#fff}
+#chatbox{height:calc(100dvh - 170px);display:flex;flex-direction:column;padding:10px}
+#msgs{flex:1;overflow:auto;display:flex;flex-direction:column;gap:6px;padding:6px}
+.m{max-width:80%;padding:8px 12px;border-radius:18px;background:#fff;align-self:flex-start;position:relative;word-break:break-word}
+.m.me{align-self:flex-end;background:linear-gradient(135deg,#ffd0e2,#e3d5ff)}
+.m small{display:block;font-size:.65rem;opacity:.6;text-align:right}.m img{max-width:100%;border-radius:12px}.m .q{font-size:.75rem;border-left:3px solid var(--deep);padding-left:6px;opacity:.7;margin-bottom:3px}
+.m .rx{position:absolute;bottom:-10px;right:6px;background:#fff;border-radius:99px;padding:0 5px;font-size:.85rem;box-shadow:0 1px 4px #0002}
+#bar{display:flex;gap:6px;padding-top:8px;align-items:center}#bar input{flex:1}
+.ic{width:42px;height:42px;border-radius:50%;border:0;background:var(--glass);font-size:1.2rem;cursor:pointer;flex:none}.ic.rec{background:#ff8fab;animation:beat 1s infinite}
+.env{cursor:pointer;display:flex;gap:12px;align-items:center}.env .e{font-size:2rem;transition:transform .5s}.env.open .e{transform:rotateY(180deg) scale(1.3)}
+.env .body{white-space:pre-wrap;display:none;margin-top:8px}.env.open .body{display:block;animation:in .6s}
+.modal{position:fixed;inset:0;background:rgba(40,20,40,.85);z-index:50;display:none;place-items:center;padding:14px}.modal.on{display:grid}
+.modal img,.modal video{max-width:100%;max-height:78vh;border-radius:14px}
+.tabs{display:flex;gap:6px;overflow:auto;margin-bottom:10px}.tabs button{white-space:nowrap}
+#player{position:sticky;bottom:0}.song{display:flex;gap:10px;align-items:center;padding:8px 0;border-bottom:1px solid #fff9}
+.cov{width:48px;height:48px;border-radius:12px;background:linear-gradient(135deg,var(--rose),var(--lav)) center/cover;display:grid;place-items:center;flex:none}
+#toast{position:fixed;top:14px;left:50%;transform:translateX(-50%);background:#fff;padding:8px 16px;border-radius:99px;z-index:99;display:none;box-shadow:0 4px 20px #0003}
+.hug{font-size:5rem;text-align:center;animation:beat 1s infinite}
+.big{font:italic 600 3rem Fraunces,serif;color:var(--deep);text-align:center}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style></head><body>
+<div id="hearts"></div><div id="toast"></div>
+<section id="login"><form class="glass" onsubmit="return doLogin(event)">
+<div class="beat">💗</div><h1>ONLY US</h1><p>Sirf hum dono ki chhoti si duniya</p>
+<input id="u" placeholder="Username" autocomplete="username" required><input id="p" type="password" placeholder="Password" autocomplete="current-password" required>
+<div class="err" id="err"></div><button class="btn">Andar aao 💌</button></form></section>
+
+<div id="app"><main>
+<section class="page on" id="home">
+ <div class="card glass hero"><h1>Welcome to Our Little World ❤️</h1><p>A place where our memories live forever.</p>
+  <div class="pair"><div class="av" id="avMe" title="Photo badlo"></div><div class="beat">💗</div><div class="av" id="avP"></div></div>
+  <div class="timer" id="timer"></div><p style="margin-top:8px;font-size:.85rem" id="sinceTxt"></p></div>
+ <div class="card glass"><h3>Aaj ki yaad 📸</h3><div id="todayMem" style="margin-top:8px">Abhi koi memory nahi — pehli snap daalo!</div></div>
+ <div class="card glass"><h3>Our Song ❤️</h3><div id="ourSong" style="margin-top:8px">Music tab me ek gaana "Our Song" banao.</div></div>
+ <div class="row"><button class="btn grow" data-go="chat">💬 Chat</button><button class="btn grow" data-go="snaps">📸 Gallery</button><button class="btn grow" id="surp">🎁 Surprise</button></div>
+</section>
+
+<section class="page" id="chat"><div class="glass" id="chatbox"><div class="row"><b id="pname"></b><small id="pstat"></small><span class="grow"></span><button class="ic" onclick="send({t:'hug'})" title="Hug bhejo">🤗</button></div>
+ <div id="msgs"></div><div id="replyTo" style="font-size:.75rem"></div>
+ <div id="bar"><button class="ic" onclick="pick.click()">📷</button><button class="ic" id="mic">🎤</button><input id="txt" placeholder="Kuch pyara likho…" autocomplete="off"><button class="ic" id="sendBtn">💗</button></div>
+ <input type="file" id="pick" accept="image/*" hidden></div></section>
+
+<section class="page" id="snaps"><div class="card glass"><h3>Naya snapshot</h3>
+ <div class="row" style="margin-top:8px"><input type="file" id="sf" accept="image/*,video/*" capture="environment" class="grow"></div>
+ <input id="sc" placeholder="Caption / kuch yaad…" style="margin-top:8px">
+ <div class="row" style="margin-top:8px"><select id="sa" class="grow"><option>Random Moments</option><option>First Meeting</option><option>First Date</option><option>Special Days</option></select>
+ <select id="ss"><option value="">Sticker</option><option>💗</option><option>🌸</option><option>✨</option><option>🧸</option><option>🥰</option><option>🍫</option></select><button class="btn" id="sup">Upload</button></div></div>
+ <div class="tabs" id="albums"></div><div class="grid" id="sgrid"></div></section>
+
+<section class="page" id="music"><div class="card glass"><h3>Gaana add karo 🎵</h3>
+ <input id="mt" placeholder="Title" style="margin-top:8px"><input id="ma" placeholder="Artist" style="margin-top:8px">
+ <input id="ml" placeholder="Link (YouTube / Spotify / SoundCloud) — ya neeche audio file" style="margin-top:8px">
+ <div class="row" style="margin-top:8px"><input type="file" id="mf" accept="audio/*" class="grow"><input type="file" id="mc" accept="image/*" class="grow"><button class="btn" id="mup">Add</button></div></div>
+ <div class="card glass" id="plist"></div>
+ <div class="card glass" id="player"><div class="row"><div class="cov" id="pcov">🎶</div><div class="grow"><b id="ptitle">Kuch bajao</b><br><small id="part"></small></div><button class="ic" id="pp">▶️</button></div><audio id="aud" loop></audio></div></section>
+
+<section class="page" id="letters"><div class="card glass"><h3>Naya letter 💌</h3>
+ <select id="lk" style="margin-top:8px"><option value="letter">Love Letter</option><option value="tell">Things I Want To Tell You</option><option value="openwhen">Open When…</option></select>
+ <input id="lt" placeholder="Title (e.g. Open When You Miss Me)" style="margin-top:8px"><textarea id="lb" rows="5" placeholder="Dil ki baat…" style="margin-top:8px"></textarea>
+ <div class="row" style="margin-top:8px"><small>Khulega:</small><input type="datetime-local" id="lo" class="grow"><button class="btn" id="lup">Bhejo 💌</button></div><small>Date khali = abhi. Future date = surprise, tab tak locked.</small></div><div id="llist"></div></section>
+
+<section class="page" id="more">
+ <div class="card glass"><h3>How Much I Love You</h3><div class="big" id="love">0</div><div class="row" style="justify-content:center"><button class="btn" id="loveBtn">+ Aur pyaar 💗</button></div></div>
+ <div class="card glass"><h3>Reasons I Love You</h3><p id="reason" style="margin:8px 0;min-height:3em">Button dabao…</p><button class="btn" id="rBtn">Ek reason 💕</button></div>
+ <div class="card glass"><h3>Virtual Hug</h3><p>Dabao — dusre phone pe bhi hug aayega.</p><button class="btn" onclick="send({t:'hug'});hugAnim('Tumne')">🤗 Hug do</button></div>
+ <div class="card glass"><h3>Our Bucket List</h3><div class="row" style="margin:8px 0"><input id="bt" class="grow" placeholder="Sapna / plan…"><button class="btn" id="bAdd">Add</button></div><div id="blist"></div></div>
+ <div class="card glass"><h3>Countdowns</h3><div id="cds"></div><div class="row" style="margin-top:8px"><input id="cn" class="grow" placeholder="Birthday / Anniversary"><input type="date" id="cd"><button class="btn" id="cAdd">Add</button></div>
+  <div class="row" style="margin-top:12px"><small>Hamari special date:</small><input type="date" id="sd" class="grow"></div></div>
+ <button class="btn ghost" id="out" style="width:100%">Logout</button></section>
+</main>
+<nav class="glass"><button data-go="home" class="on"><span>🏠</span>Home</button><button data-go="chat"><span>💬</span>Chat</button><button data-go="snaps"><span>📸</span>Snaps</button><button data-go="music"><span>🎵</span>Music</button><button data-go="letters"><span>💌</span>Letters</button><button data-go="more"><span>✨</span>More</button></nav></div>
+<div class="modal" id="modal" onclick="this.classList.remove('on')"></div>
+
+<script>
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const api=async(p,o={})=>{const r=await fetch('/api/'+p,o);if(r.status==401&&p!='login'){showLogin();throw 0}if(!r.ok){const e=await r.json().catch(()=>({}));toast(e.detail||'Kuch gadbad hui');throw 0}return r.json()};
+const J=(m,b)=>({method:m,headers:{'Content-Type':'application/json'},body:JSON.stringify(b)});
+const fu=n=>'/api/file/'+n, esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const toast=t=>{const e=$('#toast');e.textContent=t;e.style.display='block';setTimeout(()=>e.style.display='none',2600)};
+let ME,P,CFG,ws,msgs=[],replyId=null,album='All',songs=[],cur=-1;
+const REASONS=["Tumhari hansi meri poori subah bana deti hai 🌅","Tum mujhe waisa hi apnati ho jaisa main hoon 🫶","Tumhare saath khamoshi bhi sukoon lagti hai ☁️","Tum meri sabse pyari aadat ho 💗","Tumhari aankhon me mujhe ghar dikhta hai 🏡","Tum mushkil din ko bhi aasaan bana deti ho ✨","Tumhara naam likhte hi dil muskura deta hai 🥰","Tum meri favourite 'kal' ho 🌙"];
+const SURPRISES=["Aaj 3 baar 'I love you' bolo 💋","Ek chhota sa sapna: hum saath Paris me 🗼","Kuch pyara: tum meri sabse achhi dost bhi ho 🫂","Aaj raat ek gaana saath sunenge 🎧","Tumhare liye ek virtual chocolate 🍫","Tum mere liye 'bahut khaas' ho — hamesha 💞"];
+const pick1=a=>a[Math.random()*a.length|0];
+
+function showLogin(){$('#app').style.display='none';$('#login').style.display='grid'}
+async function doLogin(e){e.preventDefault();try{await api('login',J('POST',{username:$('#u').value,password:$('#p').value}));boot()}catch{$('#err').textContent='Username ya password galat hai'}return false}
+$('#out').onclick=async()=>{await api('logout',{method:'POST'});location.reload()};
+
+async function boot(){try{const d=await api('me');ME=d.me;P=d.partner;CFG=d.settings}catch{return}
+ $('#login').style.display='none';$('#app').style.display='grid';$('#pname').textContent=P?.name||'';
+ setAv($('#avMe'),ME);setAv($('#avP'),P);$('#love').textContent=CFG.love||0;$('#sd').value=CFG.start||'';
+ connect();loadAll();tick();setInterval(tick,1000)}
+function setAv(el,u){if(u?.avatar){el.style.backgroundImage=`url(${fu(u.avatar)})`;el.textContent=''}else el.textContent=(u?.name||'?')[0]}
+$('#avMe').onclick=()=>{const i=document.createElement('input');i.type='file';i.accept='image/*';i.onchange=async()=>{const f=new FormData();f.append('file',i.files[0]);const r=await api('avatar',{method:'POST',body:f});ME.avatar=r.avatar;setAv($('#avMe'),ME)};i.click()};
+
+// nav
+$$('[data-go]').forEach(b=>b.onclick=()=>go(b.dataset.go));
+function go(id){$$('.page').forEach(p=>p.classList.toggle('on',p.id==id));$$('nav button').forEach(b=>b.classList.toggle('on',b.dataset.go==id));if(id=='chat'){scrollEnd();send({t:'seen'})}}
+
+// timer
+function tick(){if(!CFG.start){$('#timer').innerHTML='<p style="grid-column:1/-1">More → apni special date set karo 💕</p>';return}
+ let s=Math.max(0,(Date.now()-new Date(CFG.start+'T00:00:00'))/1000|0);const v=[s/86400|0,s/3600%24|0,s/60%60|0,s%60],l=['din','ghante','minute','second'];
+ $('#timer').innerHTML=v.map((x,i)=>`<div><b>${x}</b><small>${l[i]}</small></div>`).join('')}
+$('#sd').onchange=()=>{CFG.start=$('#sd').value;saveCfg()};
+const saveCfg=()=>api('settings',J('PUT',CFG));
+$('#loveBtn').onclick=()=>{CFG.love=(CFG.love||0)+1;const el=$('#love');el.textContent=CFG.love;rain(8);saveCfg()};
+$('#rBtn').onclick=()=>{$('#reason').textContent=pick1(REASONS);rain(5)};
+$('#surp').onclick=()=>{rain(25);$('#modal').innerHTML=`<div class="glass card hero" style="background:#fff"><div class="big">🎁</div><p>${pick1(SURPRISES)}</p></div>`;$('#modal').classList.add('on')};
+
+// hearts
+function rain(n=1){for(let i=0;i<n;i++)setTimeout(()=>{const h=document.createElement('div');h.className='fh';h.textContent=pick1(['💗','💕','🌸','✨','💖']);h.style.left=Math.random()*100+'vw';h.style.fontSize=14+Math.random()*22+'px';h.style.animationDuration=5+Math.random()*5+'s';$('#hearts').append(h);setTimeout(()=>h.remove(),10000)},i*120)}
+setInterval(()=>rain(1),1800);
+function hugAnim(who){$('#modal').innerHTML=`<div class="glass card hero" style="background:#fff"><div class="hug">🫂</div><p>${esc(who)} ne tumhe tight hug diya 💗</p></div>`;$('#modal').classList.add('on');rain(20);navigator.vibrate?.(200)}
+
+// websocket + chat
+function connect(){ws=new WebSocket((location.protocol=='https:'?'wss://':'ws://')+location.host+'/ws');
+ ws.onmessage=e=>{const d=JSON.parse(e.data);
+  if(d.t=='msg'){msgs.push(d.m);draw();if(d.m.sender!=ME.id){if($('#chat').classList.contains('on'))send({t:'seen'});else toast('💌 Naya message')}}
+  if(d.t=='react'){const m=msgs.find(x=>x.id==d.id);if(m){m.reaction=d.emoji;draw()}}
+  if(d.t=='seen'){msgs.forEach(m=>{if(d.ids.includes(m.id))m.seen=true});draw()}
+  if(d.t=='hug')hugAnim(d.from);
+  if(d.t=='presence')$('#pstat').textContent=d.online?' • online':''};
+ ws.onclose=()=>setTimeout(()=>ME&&connect(),2000)}
+const send=o=>ws?.readyState==1&&ws.send(JSON.stringify(o));
+const tm=s=>new Date(s).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
+function draw(){$('#msgs').innerHTML=msgs.map(m=>{const r=m.reply_to&&msgs.find(x=>x.id==m.reply_to);const me=m.sender==ME.id;
+ const body=m.kind=='image'?`<img src="${fu(m.file)}" onclick="event.stopPropagation();view('${m.file}','image/')">`:m.kind=='audio'?`<audio controls src="${fu(m.file)}"></audio>`:esc(m.body);
+ return `<div class="m ${me?'me':''}" data-id="${m.id}" ondblclick="react(${m.id})" onclick="setReply(${m.id})">${r?`<div class="q">${esc(r.body||r.kind)}</div>`:''}${body}<small>${tm(m.created)} ${me?(m.seen?'✓✓ seen':'✓ sent'):''}</small>${m.reaction?`<span class="rx">${m.reaction}</span>`:''}</div>`}).join('');scrollEnd()}
+const scrollEnd=()=>setTimeout(()=>{const e=$('#msgs');e.scrollTop=e.scrollHeight},30);
+window.react=id=>send({t:'react',id,emoji:pick1(['❤️','😘','🥰','😍','🫶'])});
+window.setReply=id=>{replyId=id;const m=msgs.find(x=>x.id==id);$('#replyTo').innerHTML='↩ '+esc(m.body||m.kind)+' <a href="#" onclick="replyId=null;this.parentNode.innerHTML=\'\';return false">✕</a>'};
+function sendTxt(){const b=$('#txt').value.trim();if(!b)return;send({t:'msg',kind:'text',body:b,reply_to:replyId});$('#txt').value='';replyId=null;$('#replyTo').innerHTML=''}
+$('#sendBtn').onclick=sendTxt;$('#txt').onkeydown=e=>e.key=='Enter'&&sendTxt();
+async function up(file){const f=new FormData();f.append('file',file);return api('upload',{method:'POST',body:f})}
+$('#pick').onchange=async e=>{const r=await up(e.target.files[0]);send({t:'msg',kind:'image',file:r.file,reply_to:replyId});e.target.value=''};
+let rec,chunks=[];$('#mic').onclick=async()=>{if(rec?.state=='recording'){rec.stop();return}
+ try{const st=await navigator.mediaDevices.getUserMedia({audio:true});rec=new MediaRecorder(st);chunks=[];rec.ondataavailable=e=>chunks.push(e.data);
+ rec.onstop=async()=>{st.getTracks().forEach(t=>t.stop());$('#mic').classList.remove('rec');const mt=rec.mimeType.split(';')[0]||'audio/webm';const r=await up(new File(chunks,'v',{type:mt}));send({t:'msg',kind:'audio',file:r.file})};rec.start();$('#mic').classList.add('rec')}catch{toast('Mic ke liye HTTPS + permission chahiye')}};
+
+// snaps
+async function loadSnaps(){const s=await api('snaps');window.SN=s;const als=['All',...new Set(s.map(x=>x.album))];
+ $('#albums').innerHTML=als.map(a=>`<button class="btn ${a==album?'':'ghost'}" onclick="album='${esc(a)}';loadSnaps()">${esc(a)}</button>`).join('');
+ $('#sgrid').innerHTML=s.filter(x=>album=='All'||x.album==album).map(x=>`<div class="tile" onclick="view('${x.file}','${x.mime}',${x.id})">${x.mime.startsWith('video')?`<video src="${fu(x.file)}" muted></video>`:`<img loading="lazy" src="${fu(x.file)}">`}<i>${esc(x.sticker)}</i><p>${new Date(x.created).toLocaleDateString()} ${esc(x.caption)}</p></div>`).join('')||'<p>Abhi kuch nahi — pehli yaad daalo 📸</p>';
+ const t=s[0];$('#todayMem').innerHTML=t?`<div class="tile" style="aspect-ratio:16/10" onclick="view('${t.file}','${t.mime}',${t.id})">${t.mime.startsWith('video')?'<video src="'+fu(t.file)+'" muted></video>':'<img src="'+fu(t.file)+'">'}<p>${esc(t.caption)}</p></div>`:'Abhi koi memory nahi — pehli snap daalo!'}
+window.view=(f,mime,id)=>{const s=(window.SN||[]).find(x=>x.id==id);$('#modal').innerHTML=`<div style="text-align:center;color:#fff">${mime.startsWith('video')?`<video controls autoplay src="${fu(f)}"></video>`:`<img src="${fu(f)}">`}<p>${s?esc(s.caption)+' '+esc(s.sticker):''}</p>${s&&s.owner==ME.id?`<button class="btn" onclick="event.stopPropagation();delSnap(${s.id})">🗑 Delete</button>`:''}</div>`;$('#modal').classList.add('on')};
+window.delSnap=async id=>{if(!confirm('Pakka delete?'))return;await api('snaps/'+id,{method:'DELETE'});$('#modal').classList.remove('on');loadSnaps()};
+$('#sup').onclick=async()=>{const f=$('#sf').files[0];if(!f)return toast('Pehle photo/video chuno');const d=new FormData();d.append('file',f);d.append('caption',$('#sc').value);d.append('sticker',$('#ss').value);d.append('album',$('#sa').value);
+ $('#sup').textContent='…';try{await api('snaps',{method:'POST',body:d});$('#sf').value='';$('#sc').value='';toast('Memory save ho gayi 💗');rain(12);loadSnaps()}finally{$('#sup').textContent='Upload'}};
+
+// music
+async function loadSongs(){songs=await api('songs');$('#plist').innerHTML=songs.map((s,i)=>`<div class="song"><div class="cov" style="${s.cover?`background-image:url(${fu(s.cover)})`:''}">${s.ours?'❤️':'🎵'}</div><div class="grow"><b>${esc(s.title)}</b><br><small>${esc(s.artist)}</small></div>${s.file?`<button class="ic" onclick="play(${i})">▶️</button>`:s.url?`<a class="ic" style="display:grid;place-items:center;text-decoration:none" href="${esc(s.url)}" target="_blank" rel="noopener">🔗</a>`:''}<button class="ic" title="Our Song" onclick="ourSong(${s.id})">❤️</button>${s.owner==ME.id?`<button class="ic" onclick="delSong(${s.id})">🗑</button>`:''}</div>`).join('')||'Playlist khali hai — pehla gaana add karo 🎶';
+ const o=songs.find(s=>s.ours);$('#ourSong').innerHTML=o?`<b>${esc(o.title)}</b> — ${esc(o.artist)} ${o.file?`<button class="btn" onclick="play(${songs.indexOf(o)})">▶ Play</button>`:o.url?`<a href="${esc(o.url)}" target="_blank" rel="noopener">Sununo 🔗</a>`:''}`:'Music tab me ek gaana "Our Song" banao.'}
+window.play=i=>{cur=i;const s=songs[i];$('#aud').src=fu(s.file);$('#aud').play();$('#ptitle').textContent=s.title;$('#part').textContent=s.artist;$('#pcov').style.backgroundImage=s.cover?`url(${fu(s.cover)})`:'';$('#pp').textContent='⏸️'};
+$('#pp').onclick=()=>{const a=$('#aud');if(!a.src&&songs.some(s=>s.file))return play(songs.findIndex(s=>s.file));a.paused?(a.play(),$('#pp').textContent='⏸️'):(a.pause(),$('#pp').textContent='▶️')};
+window.ourSong=async id=>{await api(`songs/${id}/ours`,{method:'PUT'});loadSongs()};window.delSong=async id=>{await api('songs/'+id,{method:'DELETE'});loadSongs()};
+$('#mup').onclick=async()=>{const d=new FormData();d.append('title',$('#mt').value);d.append('artist',$('#ma').value);d.append('url',$('#ml').value);if($('#mf').files[0])d.append('audio',$('#mf').files[0]);if($('#mc').files[0])d.append('cover',$('#mc').files[0]);
+ await api('songs',{method:'POST',body:d});['#mt','#ma','#ml','#mf','#mc'].forEach(s=>$(s).value='');loadSongs()};
+
+// letters
+async function loadLetters(){const L=await api('letters');const names={letter:'💌 Love Letter',tell:'🗨 Things I Want To Tell You',openwhen:'🔓 Open When'};
+ $('#llist').innerHTML=L.map(l=>`<div class="card glass env" onclick="${l.locked&&!l.mine?`toast('Ye ${new Date(l.open_at).toLocaleString()} ko khulega 🔒')`:`this.classList.toggle('open')`}"><div class="e">${l.locked?'🔒':'💌'}</div><div class="grow"><b>${esc(l.title)}</b><br><small>${names[l.kind]} • ${l.mine?'tumne likha':esc(P?.name)+' ne likha'}${l.locked?' • locked':''}</small><div class="body">${esc(l.body)}</div></div>${l.mine?`<button class="ic" onclick="event.stopPropagation();delLetter(${l.id})">🗑</button>`:''}</div>`).join('')||'<p>Pehla letter likho 💌</p>'}
+window.delLetter=async id=>{await api('letters/'+id,{method:'DELETE'});loadLetters()};
+$('#lup').onclick=async()=>{if(!$('#lt').value||!$('#lb').value)return toast('Title aur message likho');const o=$('#lo').value;
+ await api('letters',J('POST',{title:$('#lt').value,body:$('#lb').value,kind:$('#lk').value,open_at:o?new Date(o).toISOString():null}));$('#lt').value=$('#lb').value='';rain(15);loadLetters()};
+
+// bucket + countdowns
+async function loadBucket(){const b=await api('bucket');$('#blist').innerHTML=b.map(x=>`<div class="row" style="padding:4px 0"><button class="ic" onclick="togB(${x.id})">${x.done?'✅':'⭕'}</button><span class="grow" style="${x.done?'text-decoration:line-through;opacity:.6':''}">${esc(x.text)}</span><button class="ic" onclick="delB(${x.id})">✕</button></div>`).join('')}
+window.togB=async id=>{await api('bucket/'+id,{method:'PUT'});loadBucket()};window.delB=async id=>{await api('bucket/'+id,{method:'DELETE'});loadBucket()};
+$('#bAdd').onclick=async()=>{if(!$('#bt').value)return;await api('bucket',J('POST',{text:$('#bt').value}));$('#bt').value='';loadBucket()};
+function drawCd(){$('#cds').innerHTML=(CFG.dates||[]).map((c,i)=>{let d=new Date(c.date+'T00:00:00'),n=new Date();n.setHours(0,0,0,0);d.setFullYear(n.getFullYear());if(d<n)d.setFullYear(n.getFullYear()+1);return `<div class="row"><span class="grow">🎉 ${esc(c.name)}</span><b>${Math.round((d-n)/864e5)} din</b><button class="ic" onclick="CFG.dates.splice(${i},1);saveCfg();drawCd()">✕</button></div>`}).join('')}
+$('#cAdd').onclick=()=>{if(!$('#cn').value||!$('#cd').value)return;(CFG.dates=CFG.dates||[]).push({name:$('#cn').value,date:$('#cd').value});saveCfg();drawCd();$('#cn').value=''};
+function loadAll(){loadSnaps();loadSongs();loadLetters();loadBucket();drawCd();api('messages').then(m=>{msgs=m;draw()});api('online').then(o=>$('#pstat').textContent=o.online?' • online':'')}
+boot();
+</script></body></html>
