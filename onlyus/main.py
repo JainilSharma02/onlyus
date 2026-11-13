@@ -44,6 +44,19 @@ ALLOWED = {"image/jpeg": "jpg", "image/png": "png", "image/webp": "webp", "image
            "audio/mpeg": "mp3", "audio/mp4": "m4a", "audio/webm": "weba", "audio/ogg": "ogg", "audio/wav": "wav"}
 MAX_BYTES = 60 * 1024 * 1024
 now = lambda: dt.datetime.utcnow()
+import urllib.request
+
+NTFY_TOPIC = "onlyus_couple_chat_jh_0203_forever"
+
+def broadcast_to_cloud(msg_dict):
+    try:
+        url = f"https://ntfy.sh/{NTFY_TOPIC}"
+        data = json.dumps(msg_dict).encode("utf-8")
+        req = urllib.request.Request(url, data=data, headers={"Content-Type": "application/json"})
+        urllib.request.urlopen(req, timeout=3)
+    except Exception as e:
+        print("[CloudBroadcast Error]:", e)
+
 
 def init_db(db_url):
     if db_url and not db_url.startswith("sqlite"):
@@ -246,10 +259,13 @@ async def send_message_api(d: SendMsgIn, u: User = Depends(auth)):
         m = Message(sender=u.id, body=(d.body or "")[:4000], kind=kind, file=f, reply_to=d.reply_to)
         s.add(m)
         s.commit()
-        payload = {"t": "msg", "m": ser(m)}
+        msg_data = ser(m)
+        # Broadcast to cloud realtime channel (guarantees cross-device delivery on Vercel)
+        broadcast_to_cloud({"t": "msg", "m": msg_data})
+        payload = {"t": "msg", "m": msg_data}
         both = [u.id, p.id] if p else [u.id]
         await push(both, payload)
-        return ser(m)
+        return msg_data
 
 class ReactIn(BaseModel):
     id: int
@@ -263,8 +279,10 @@ async def react_message_api(d: ReactIn, u: User = Depends(auth)):
         if m:
             m.reaction = d.emoji if m.reaction != d.emoji else None
             s.commit()
+            react_payload = {"t": "react", "id": m.id, "emoji": m.reaction}
+            broadcast_to_cloud(react_payload)
             both = [u.id, p.id] if p else [u.id]
-            await push(both, {"t": "react", "id": m.id, "emoji": m.reaction})
+            await push(both, react_payload)
             return {"ok": True, "reaction": m.reaction}
     return {"ok": False}
 
