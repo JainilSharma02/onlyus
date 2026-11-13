@@ -13,11 +13,32 @@ from pydantic import BaseModel
 from sqlalchemy import create_engine, Column, Integer, String, Text, Boolean, DateTime, ForeignKey
 from sqlalchemy.orm import declarative_base, sessionmaker
 
-DB = os.getenv("DATABASE_URL", "postgresql://onlyus:onlyus@localhost:5432/onlyus")
+DB = os.getenv("DATABASE_URL", "")
 SECRET = os.getenv("SECRET_KEY", "dev-only-change-me")
 SECURE = os.getenv("COOKIE_SECURE", "false").lower() == "true"
 SESSION_SECS = 60 * 60 * 24 * 7
-UP = Path("uploads"); UP.mkdir(exist_ok=True)
+BASE_DIR = Path(__file__).resolve().parent
+
+# Smart uploads directory — works on Railway, local, anywhere
+_up_candidates = [
+    Path(os.getenv("UPLOAD_DIR", "")),
+    BASE_DIR / "uploads",
+    Path("/tmp/uploads"),
+]
+UP = None
+for _p in _up_candidates:
+    if not str(_p).strip("/"):
+        continue
+    try:
+        _p.mkdir(parents=True, exist_ok=True)
+        UP = _p
+        break
+    except Exception:
+        continue
+if UP is None:
+    UP = Path("/tmp/uploads")
+    UP.mkdir(parents=True, exist_ok=True)
+
 ALLOWED = {"image/jpeg": "jpg", "image/png": "png", "image/webp": "webp", "image/gif": "gif",
            "video/mp4": "mp4", "video/webm": "webm", "video/quicktime": "mov",
            "audio/mpeg": "mp3", "audio/mp4": "m4a", "audio/webm": "weba", "audio/ogg": "ogg", "audio/wav": "wav"}
@@ -35,7 +56,8 @@ def init_db(db_url):
         except Exception as err:
             print(f"[DB] PostgreSQL unavailable ({err}). Falling back to SQLite local database.")
     
-    sqlite_url = "sqlite:///./onlyus.db"
+    _sqlite_path = str(BASE_DIR / "onlyus.db")
+    sqlite_url = f"sqlite:///{_sqlite_path}"
     print(f"[DB] Running on SQLite: {sqlite_url}")
     return create_engine(sqlite_url, connect_args={"check_same_thread": False})
 

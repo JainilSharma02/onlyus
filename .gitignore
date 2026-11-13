@@ -16,6 +16,9 @@ ENV/
 onlyus.db
 uploads/
 
+# Large binaries
+*.exe
+
 # OS files
 .DS_Store
 Thumbs.db
